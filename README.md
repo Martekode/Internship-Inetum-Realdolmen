@@ -33,3 +33,58 @@ if the location of the page is /directory/index.html and the service workers loc
 
 *unless it is specifically needed to limit the scope of the SW (Service Worker), place it in the root so that the scope is as broad as possible.* The documentation tells us no to worry about the response header because it is easier to put the scope of the SW in the root. (efficiency can be talked about if you study it deeper)
 
+## LIFECYCLE SW
+### Registration 
+first step
+```js
+  // Don't register the service worker
+  // until the page has fully loaded
+  window.addEventListener('load', () => {
+    // Is service worker available?
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').then(() => {
+        console.log('Service worker registered!');
+      }).catch((error) => {
+        console.warn('Error registering service worker:');
+        console.warn(error);
+      });
+    }
+  });
+```
+this code runs on the main thread,
+but what does this do?:
+- The user visits the page for the first time and therefor has no registered SW. We wait untill the page is fully loaded before registering our SW to prevent bqndwith contention if precaching. 
+- we also do a quick check to avoid errors in browsers where it isn't supported. 
+- if page is fully loaded and if supported then registe /sw.js
+
+**When registering the state is set to "installing"**
+
+### installation
+After the registration it fires the install event. This is called only ones per SW until it's updated. We use the addeventlistener to register the install event.
+
+**example**
+```js
+// /sw.js
+self.addEventListener('install', (event) => {
+  const cacheKey = 'MyFancyCacheName_v1';
+
+  event.waitUntil(caches.open(cacheKey).then((cache) => {
+    // Add all the assets in the array to the 'MyFancyCacheName_v1'
+    // `Cache` instance for later use.
+    return cache.addAll([
+      '/css/global.bc7b80b7.css',
+      '/css/home.fe5d0b23.css',
+      '/js/home.d3cc4ba4.js',
+      '/js/jquery.43ca4933.js'
+    ]);
+  }));
+});
+```
+
+==explanation==:    We create a new cache instance and precache assets. ==event.waitUntil()== : this accepts a promise and waits for its completion. It does 2 things:
+1. creates new cache = myFancyCacheName_v1
+2. After this it precaches an array of asset URL's using the async ==addAll method==
+
+The installation can fail when the promise passed to ==event.waitUntill== is rejected. Here the SW get discarded.
+---
+If the promises get resolved then the installation succeeds and the SW state will be ==Installed==.
