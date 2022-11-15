@@ -53,7 +53,7 @@ first step
 ```
 this code runs on the main thread,
 but what does this do?:
-- The user visits the page for the first time and therefor has no registered SW. We wait untill the page is fully loaded before registering our SW to prevent bqndwith contention if precaching. 
+- The user visits the page for the first time and therefor has no registered SW. We wait untill the page is fully loaded before registering our SW to prevent bandwith contention if precaching. 
 - we also do a quick check to avoid errors in browsers where it isn't supported. 
 - if page is fully loaded and if supported then registe /sw.js
 
@@ -92,3 +92,33 @@ self.addEventListener('install', (event) => {
 if the previous steps are successful then the SW will activate and the state will change to `activating`. The SW has a `activate` event which you can give tasks. A typical task is pruning out old caches. 
 
 for new SW's the activate event fires right after the installation was successful. After `activation` is done the state of the SW becomes `activated`. will only start controlling the page after page reload or navigation.
+
+
+## Handling updates of the SW
+when the first SW is deployed it will need to be updated. 
+
+### Browsers will check for SW updates when:
+- when the user navigates to a page that lies in the scope of the SW
+- `navigator.serviceWorker.register()` is called with other SW URL. Don't change SW url though.
+- `navigator.serviceWorker.register()` is called with the sane SW URL but different scope. can be prevented by keeping the scope of SW within the root of the project.
+- when push or sync has been triggered within the last 24 hours.
+
+### How does This happen 
+if the scope and URL stayes the same then the SW only updates when its contents has changed. They detect changes in different ways.:
+- any changes to scripts requested by importScripts
+- any top level code in the SW which affects the fingerprints that the browser generated
+
+browser automatically checks for changes when navigating to a new page within SW scope.
+
+### Manually triggering update checks
+`Registration update`:
+Registration logic shouldn't change with updates.(generally)But if we talk about SPA's the automatical update check on navigation requests is rare because of the rarity of the navigation requests within SPA's. So you can trigger a manual update check to solve this.:
+```js
+    navigator.serviceWorker.ready.then((registration) => {
+        registration.update();
+    });
+```
+this is not necessary for traditional websites because sessions aren't long lived.
+
+### installation updates
+
