@@ -121,4 +121,49 @@ Registration logic shouldn't change with updates.(generally)But if we talk about
 this is not necessary for traditional websites because sessions aren't long lived.
 
 ### installation updates
+```js
+self.addEventListener('install', (event) => {
+  const cacheKey = 'MyFancyCacheName_v2';
 
+  event.waitUntil(caches.open(cacheKey).then((cache) => {
+    // Add all the assets in the array to the 'MyFancyCacheName_v2'
+    // `Cache` instance for later use.
+    return cache.addAll([
+      '/css/global.ced4aef2.css',
+      '/css/home.cbe409ad.css',
+      '/js/home.109defa4.js',
+      '/js/jquery.38caf32d.js'
+    ]);
+  }));
+});
+```
+some things are different from the first SW installation. 
+- the name of cahceKey = `myFancyCacheName_v2`
+- the names of the asset Url's
+
+When a new SW get created that means it is alongside the older SW. The new SW wil enter a waiting state until it gets activated. the waiting state persist until all the clients of the previous SW are closed, after that it will activate.
+
+### Activation update
+After the waiting state it start the activation of the new SW and the old SW is discarded. Common task in the updated SW's `activate` event is to prune old caches. Remove old cache instances by getting keys with `caches.keys` and deleting caches that aren't in a defined allow list. `cashes.delete`
+`example`:
+```js
+    self.addEventListener('activate', (event) => {
+    // Specify allowed cache keys
+    const cacheAllowList = ['MyFancyCacheName_v2'];
+
+    // Get all the currently active `Cache` instances.
+    event.waitUntil(caches.keys().then((keys) => {
+        // Delete all caches that aren't in the allow list:
+        return Promise.all(keys.map((key) => {
+        if (!cacheAllowList.includes(key)) {
+            return caches.delete(key);
+        }
+        }));
+    }));
+    });
+```
+so What happens?
+- old cashes don't automatically close themselves, we have to do that otherwise we risk storage problems. So we create a `cacheAllowList` with inside the name of the new SW. Takes makes the new one allowed to exist. If we then check for the cache instances and keys with `caches.keys`. Every key that is not included within the `cacheAllowList` gets deleted with `caches.delete(key)`.
+- After the old cache instances are deleted, the new SW's activate event will finish and will take controll of the page, replacing the old one. 
+
+## and the SW lifecycle goes on
