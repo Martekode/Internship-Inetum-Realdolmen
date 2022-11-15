@@ -85,6 +85,5 @@ self.addEventListener('install', (event) => {
 1. creates new cache = myFancyCacheName_v1
 2. After this it precaches an array of asset URL's using the async `addAll method`
 
-The installation can fail when the promise passed to `event.waitUntill` is rejected. Here the SW get discarded.
----
-If the promises get resolved then the installation succeeds and the SW state will be `Installed`.
+- The installation can fail when the promise passed to `event.waitUntill` is rejected. Here the SW get discarded.
+- If the promises get resolved then the installation succeeds and the SW state will be `Installed`.
