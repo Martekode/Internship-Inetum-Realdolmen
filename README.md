@@ -81,10 +81,10 @@ self.addEventListener('install', (event) => {
 });
 ```
 
-==explanation==:    We create a new cache instance and precache assets. ==event.waitUntil()== : this accepts a promise and waits for its completion. It does 2 things:
+**explanation**:    We create a new cache instance and precache assets. `event.waitUntil()` : this accepts a promise and waits for its completion. It does 2 things:
 1. creates new cache = myFancyCacheName_v1
-2. After this it precaches an array of asset URL's using the async ==addAll method==
+2. After this it precaches an array of asset URL's using the async `addAll method`
 
-The installation can fail when the promise passed to ==event.waitUntill== is rejected. Here the SW get discarded.
+The installation can fail when the promise passed to `event.waitUntill` is rejected. Here the SW get discarded.
 ---
-If the promises get resolved then the installation succeeds and the SW state will be ==Installed==.
+If the promises get resolved then the installation succeeds and the SW state will be `Installed`.
