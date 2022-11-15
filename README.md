@@ -87,3 +87,8 @@ self.addEventListener('install', (event) => {
 
 - The installation can fail when the promise passed to `event.waitUntill` is rejected. Here the SW get discarded.
 - If the promises get resolved then the installation succeeds and the SW state will be `Installed`.
+
+### Activation 
+if the previous steps are successful then the SW will activate and the state will change to `activating`. The SW has a `activate` event which you can give tasks. A typical task is pruning out old caches. 
+
+for new SW's the activate event fires right after the installation was successful. After `activation` is done the state of the SW becomes `activated`. will only start controlling the page after page reload or navigation.
