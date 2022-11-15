@@ -11,3 +11,16 @@ I already researched a bit and found that a package named workbox helpes with th
 
 ### my predictions for this assignement 
 I think that fetching the data and caching it is going to be the more easy task. But allowing people to change or modify the data offline and actually changing and modifying it as soon as there is an internet connection, is going to be more difficult. I haven't looked into the last bit yet. 
+
+## SERVICE WORKERS
+2 forms of caching:
+- precaching
+- runtime caching
+
+1. Precaching:
+this is the process of caching assets ahead of time, typically during a service worker's installation.
+2. runtime caching:
+is a caching strategy that applies to assets as they are requested from the network during the runtime of the app.
+guarantees offline access to the pages and assets the user already has visited.
+
+the service worker is seperated from the main thread. Meaning that their tasks don't compete for attention. 
