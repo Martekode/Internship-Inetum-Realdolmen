@@ -1,3 +1,5 @@
+[GO BACK TO MAIN README](../README.md)
+
 # LOGBOOK
 Here I'll be noting my progress from each day or my lack of progress if that would be the case. This is so you can follow along with my journey. 
 
