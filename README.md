@@ -1,8 +1,8 @@
 # Internship-Inetum-Realdolmen
 
 ## Offline Web app 
-[1. logbook](logBook/README.md)
-[1. ¨Service Workers](ResearchFolder/ServiceWorkers.md)
+- [1. logbook](logBook/README.md)
+- [2. Service Workers](ResearchFolder/ServiceWorkers.md)
 
 ### research
 my first day:
