@@ -1,5 +1,5 @@
 - [GO BACK TO MAIN](../README.md)
-- [Cache Strategies](CacheStrategies.md)
+- [Cache Strategies](CachingStrategies.md)
 
 ## cashe first, fallback to network
 - the request hits the cache. if it's in the cache serve it from there. 
