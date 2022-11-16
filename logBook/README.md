@@ -9,3 +9,5 @@ picked up my material in Huizingen and traveled back to Gent via train. This too
 ### 15/11
 Went to office in Gent to check it out. Started with the documentation of workbox and specifically Service workers. I'm researching the theory about them so that I could understand them more and what their capabilities are. I also worked onthe setup of my computer: git, microsoft sql server, ...
 documented lifecylce of the SW and the updates of the SW. Also researched a bit about cache strategies. 
+### 16/11
+researched about the working of workbox from the docs. Spent the majority on refactoring my repo structure and readme structure. It was all in one file. This was hard to read so i seperated everything and made a navigation.
