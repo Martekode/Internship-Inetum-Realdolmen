@@ -8,7 +8,7 @@
 - - [3.1 Cache only strat](ResearchFolder/CacheOnly.md)
 - - [3.2 Network Only](ResearchFolder/NetworkOnly.md)
 - - [3.3 cashe first, fallback to network](ResearchFolder/CacheFirstFallback.md)
-- - [3.4 Network first, fallback to cache](ResearchFolder/NetworkFristFallback.md)
+- - [3.4 Network first, fallback to cache](ResearchFolder/NetworkFirstFallback.md)
 
 ### research
 my first day:
