@@ -319,3 +319,13 @@ this is for data that are sort of important to update but is not crucial.
     }
     });
 ```
+# Where does workbox fit in?
+So the things that we learned are:
+- Network requests
+- caching strategies 
+- cache management 
+- precaching 
+
+workbox is a set of modules thqt simplify SW routing and caching
+
+This is to makes using SW's as easy as possible because without workbow SW's might seem arbitrary and complex. But this doesn't mean that workbox is rigid. It is designed to be flexibel to accomodate complex application requirements.
