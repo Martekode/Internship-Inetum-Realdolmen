@@ -6,6 +6,7 @@
 - - [2.1. SW lifecycle](ResearchFolder/SWlifecycle.md)
 - [3. Caching Strategies](ResearchFolder/CachingStrategies.md)
 - - [3.1 Cache only strat](ResearchFolder/CacheOnly.md)
+- - [3.2 Network Only](ResearchFolder/NetworkOnly.md)
 
 ### research
 my first day:
@@ -19,10 +20,7 @@ I think that fetching the data and caching it is going to be the more easy task.
 
 
 
-### network only 
-this is the opposite from cache only. The request passes through the SW to the network without interacting with the cache. You always get the most up to date assets, tradeoff is that this never works when offline. 
 
-using this method means that you don't call event.respondWith. 
 ### cashe first, fallback to network
 - the request hits the cache. if it's in the cache serve it from there. 
 - if the request is not in cache, go to network 
