@@ -8,3 +8,4 @@
 `cache only strategy` -> only uses the cached data to respond to the request. aparenty is used with certain preacaches.
 
 - [3.1 Cache only strat](CacheOnly.md)
+- [3.2 Network Only](NetworkOnly.md)
