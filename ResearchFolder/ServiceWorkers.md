@@ -21,3 +21,5 @@ A page being controlled by a service worker means that the network requests are 
 if the location of the page is /directory/index.html and the service workers location is /directory/sw.js then the scope is /directory/. **The scope limits** the pages the service worker is able to **controll**. Though the scope is configurable via response header or passing a scope option to the register method. 
 
 *unless it is specifically needed to limit the scope of the SW (Service Worker), place it in the root so that the scope is as broad as possible.* The documentation tells us no to worry about the response header because it is easier to put the scope of the SW in the root. (efficiency can be talked about if you study it deeper)
+
+- [2.1 SW lifecycle](SWlifecycle.md)
