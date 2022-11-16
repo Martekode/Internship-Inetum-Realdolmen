@@ -21,3 +21,5 @@ more advanced:
 - `workbox-window` : registering a SW and handling updates in de window context
 
 there are more modules to help you with service workers. This is easier to use then to use the SW API directly.
+
+- [the ways of workbox](WorkboxWays.md)
