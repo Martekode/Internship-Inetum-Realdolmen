@@ -1,7 +1,7 @@
 # Internship-Inetum-Realdolmen
 
 ## Offline Web app 
-[1. Try](logbook/README.md)
+[1. logbook](logBook/README.md)
 
 ### research
 my first day:
