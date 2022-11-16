@@ -1,5 +1,5 @@
 - [GO BACK TO MAIN](../README.md)
-- [Where does Workbox fit in?](Wokbox.md)
+- [Where does Workbox fit in?](Workbox.md)
 
 # The ways of workbox
 There is more then one way to use workbox so here will be more info about what to use when and in which situation.
