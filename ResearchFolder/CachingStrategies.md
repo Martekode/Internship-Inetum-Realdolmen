@@ -11,3 +11,4 @@
 - [3.2 Network Only](NetworkOnly.md)
 - [3.3 CacheFirstFallbackNetwork](CacheFirstFallback.md)
 - [3.4 network first fallback cache](NetworkFirstFallback.md)
+- [3.5 stale while revalidate](StaleWhileRevalidate.md)
