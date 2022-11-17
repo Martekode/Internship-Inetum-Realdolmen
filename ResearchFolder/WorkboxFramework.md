@@ -1,4 +1,4 @@
-- [GOE BACK TO MAIN](../README.md)
+- [GO BACK TO MAIN](../README.md)
 - [workbox build tools](WorkboxBuildTools.md)
 
 # Framework
