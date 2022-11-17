@@ -12,6 +12,11 @@
 - - [3.5 stale while revalidate](ResearchFolder/StaleWhileRevalidate.md)
 - [4. Where does Workbox fit in?](ResearchFolder/Workbox.md)
 - - [4.1 the ways of workbox](ResearchFolder/WorkboxWays.md)
+- [5. wokrbox build tools](ResearchFolder/WorkboxBuildTools.md)
+- - [5.1 Wrokbox-cli](ResearchFolder/Workbox-cli.md)
+- - [5.2 Workbox-build](ResearchFolder/Workbox-build.md)
+- - [5.3 Bundler](ResearchFolder/WorkboxBundler.md)
+- - [5.4 Framework](ResearchFolder/WorkboxFramework.md)
 ### research
 my first day:
 As my frst day I was given the info that I am going to make a web app work offline. This is called a PWA or Progressive Web App. This means that a web application ( always needs internet in the traditional sense ) is going to try to fetch data either from an API or a Database but it has no access to the internet. In the workfield this can happen and the workers still need to be able to see some data. 
