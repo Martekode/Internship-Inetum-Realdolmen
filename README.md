@@ -26,3 +26,9 @@ I already researched a bit and found that a package named workbox helpes with th
 
 ### my predictions for this assignement 
 I think that fetching the data and caching it is going to be the more easy task. But allowing people to change or modify the data offline and actually changing and modifying it as soon as there is an internet connection, is going to be more difficult. I haven't looked into the last bit yet. 
+
+### Findings so far:
+- `17/11/2022`: I beleive that the best strategy for caching will be network first and fallback on cache. Als precaching may be used. And it's probably best to use `create-react-app` because workbox is included out of the box. Angular doesnt have any official support but i might look in to it further and see if I can find something. There is also the option of Vue.
+# sources:
+- [`workbox documentations`](https://developer.chrome.com/docs/workbox/)
+- [`workbox with react app`](https://web.dev/precache-with-workbox-react/)
