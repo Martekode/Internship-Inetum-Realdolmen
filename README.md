@@ -17,6 +17,7 @@
 - - [5.2 Workbox-build](ResearchFolder/Workbox-build.md)
 - - [5.3 Bundler](ResearchFolder/WorkboxBundler.md)
 - - [5.4 Framework](ResearchFolder/WorkboxFramework.md)
+- [6 Workbox with React](ResearchFolder/WorkboxReact.md)
 ### research
 my first day:
 As my frst day I was given the info that I am going to make a web app work offline. This is called a PWA or Progressive Web App. This means that a web application ( always needs internet in the traditional sense ) is going to try to fetch data but it has no access to the internet. In the workfield this can happen and the workers still need to be able to see some data. 
