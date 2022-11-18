@@ -1,3 +1,3 @@
--[GO BACK TO MAIN](../README.md)
+- [GO BACK TO MAIN](../README.md)
 
 # Angular service worker
