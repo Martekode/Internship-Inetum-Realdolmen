@@ -91,3 +91,22 @@ Here we are pruning out old cahces if needed. Which is a common task of the acti
 
 ### Manifest file
 
+inside a `manifest.json` inside the `public` folder.:
+```json
+{
+    "short_name" : "myAppName",
+    "name" : "myLongerAppName",
+    "icons" : [
+        {
+            "src" : "/images/logo.png",
+            "type" : "image/png",
+            "sizes" : "1024x1024"
+        }
+    ],
+    "start_url" : ".",
+    "display" : "standalone",
+    "theme_color" : "#000000",
+    "background_color" : "#ffffff"
+}
+```
+in here you give some settings to the browser about your application for when it's offline. Colors, icons, display settings,... These are all included. We can play with these settings to our own liking.
