@@ -32,3 +32,28 @@ now you'll have a dist folder and inside the `dist/service-worker-web-dev` direc
 }
 ```
 this was added with the addition of `"/assets/*.png"`.
+
+## `example manifest file`
+```json
+{
+  "name": "manifest-web-dev",
+  "short_name": "manifest-web-dev",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+```
