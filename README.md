@@ -18,6 +18,7 @@
 - - [5.3 Bundler](ResearchFolder/WorkboxBundler.md)
 - - [5.4 Framework](ResearchFolder/WorkboxFramework.md)
 - [6 Workbox with React](ResearchFolder/WorkboxReact.md)
+- [7 Angular service worker](ResearchFolder/AngularSW.md)
 ### research
 my first day:
 As my frst day I was given the info that I am going to make a web app work offline. This is called a PWA or Progressive Web App. This means that a web application ( always needs internet in the traditional sense ) is going to try to fetch data but it has no access to the internet. In the workfield this can happen and the workers still need to be able to see some data. 
@@ -33,3 +34,4 @@ I think that fetching the data and caching it is going to be the more easy task.
 # sources:
 - [`workbox documentations`](https://developer.chrome.com/docs/workbox/)
 - [`workbox with react app`](https://web.dev/precache-with-workbox-react/)
+- [`anguar service workers`](https://angular.io/guide/service-worker-intro)
