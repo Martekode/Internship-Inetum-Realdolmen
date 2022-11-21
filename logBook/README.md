@@ -15,3 +15,5 @@ researched about the working of workbox from the docs. Spent the majority on ref
 finished up the research from the docs. Started research around using workbox react. I might want to look into angular compatability sinds it's not supported by the workbox team. Might be fun to find out.
 ### 18/11
 today i started again with researching about workbox and react compatibility. After that i started on researching into angular with service workers. I'm not done with this sinds it's not as straightforward.
+### 21/11 
+Today I'll be working on the research further of angular. I'll write down some steps and provide the resource.
