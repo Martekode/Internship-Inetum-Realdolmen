@@ -138,4 +138,23 @@ we get a couple of injectable services:
 By loading the ngsw-worker.js, the service worker will be registered in the browser (if supported), via the call `navigator.serviceWorker.register()`
 the `register()` method will laod the `ngsw-worker.js` file in a seperate http-request. Now we're missing only one thing to turn our application into a Angular PWA. 
 
-#### the build configuration file `ngsw-config.json`
+#### the build configuration file `ngsw-config.json`.
+This file was also added. This configures the service worker runtime behavior. It maybe possible that the settings are correct for your applcation depending on the project. Other configurations can be added though, if needed. This file contains default caching configurationswhich targets the applications static asset files. 
+- index.html
+- CSS
+- javascript bundles
+```json
+"buildOptimizer": true,
+"serviceWorker": true,
+"ngswConfigPath": "src/ngsw-config.json",
+"fileReplacements": [
+  {
+    "replace": "src/environments/environment.ts",
+    "with": "src/environments/environment.prod.ts"
+  }
+]
+```
+
+### step THREE:
+
+
