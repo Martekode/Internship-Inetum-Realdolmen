@@ -156,5 +156,16 @@ This file was also added. This configures the service worker runtime behavior. I
 ```
 
 ### step THREE:
+#### understanding the angular service worker runtime caching mechanism
+All sorts of content can be stored in the browsers cache storage. This a javascript-based key/value caching mechanism that is not reelated to the standard browser `cache-control`. Both can be used sepreatlmy. 
+The `assetGroups` section is there to configure exactly what https-requests get cached in `cache storage` by the angular service worker. There are two configurations. 
+- entry named : `app`. This is for all single page aplication files.
+- - index.html
+- - css
+- - javasxript bundles
+- - favicon
+- entry named : `assets`. for any other assets also shipped in the `dist/`folder. `example`: images that are not neccesarily needed to run every page. 
+#### caching static files that are the application itself.
+
 
 
