@@ -171,5 +171,15 @@ these files are going to be downloaded and installed in the background by the se
 
 it is good to download and cache these files as early and permanently as posssible sinds we'll be needing these files for the application all the time.
 #### caching other auxiliary static assets. 
+the asset files are only cached when requested. This means the install mode is `lazy`. If they are requested ones and there is a new versions they will be downloaded ahead of time. this is update mode `prefetch`.
+
+This is good for assets like images sinds they may not be needed all the time depending on the pages requested by the user.
+these are obviously default settings that can be altered to our liking. 
+For the `app` files though it is unlikely that we'll use an other method.
+
+with these steps we already have an installable application ready to go.
+
+### step FOUR:
+
 
 
