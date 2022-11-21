@@ -239,6 +239,25 @@ it is either going to load these files via `prefetch` or as needed in case of in
 This is all going to happen in the background and when the user next revisited the page or reloads, it is going the serve the cached files. 
 It intercepts the http request. 
 ### step FIVE:
+add a webserver. 
+#### npm install -g http-server
+go to the dist folder and start the http server.
+#### cd dist
+#### http-server -c-1 .
+the `-c-1` option will disable server caching, normally the server will run on the port `8080`.
+if you have a REST API running in port 9000 for example, you can proxy ant api calls to it via:
+#### http-server -c-1 --proxy hhtp://localhost:9000
+ if we go to the server on `http://localhost:8080` and inspect it with the de tools. we can see that we have a service worker running with source file : `ngsw-worker.js`. this is all as expected. 
+ #### where are the javascript and css bundles stored? 
+ these files can all be found in the cache storage. 
+Now that these are stored in the cache storage, if you now reload the page it is going to serve the cached files so it loads faster. The improvement will be a lot better in production instead of localhost.
 
+#### taking the app offline. 
+To test if it works we can shut down the server with ctr+c. 
+let's now hit refresh after shutting down the server. The application should still be running. 
+in the console though we will get the following message: 
+#### An unknown error occurred when fetching the script. ngsw-worker.js Failed to load resource: net::ERR_CONNECTION_REFUSED. 
+It looks like the only file that tried being fetched was the service worker itself, but apparently that is normal. 
+### step SIX:
 
 
