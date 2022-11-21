@@ -180,6 +180,65 @@ For the `app` files though it is unlikely that we'll use an other method.
 with these steps we already have an installable application ready to go.
 
 ### step FOUR:
+#### understanding and running a PWA production build.
+from these steps on it gets a little more practicle. So these instructions will be more like a tryout to get the feel of the PWA working. 
+first we'll identify the application by spitting out the version into html. This is so that we easily have a visual on which version is running at the moment. 
+This can be as simple as:
+```html
+<h1>Version V1 is running...</h1>
+```
+now we create a prod of our app. This is where the service worker will be located. 
+##### ng build --prod
+this will create the required `dist/` folder. Because off our angular.json file and the serviceWorker flag a couple of files were created in the `dist/` folder. 
+#### `ngsw-worker.js` file 
+this is *the* Angular service worker istelf. Like all service workers it gets delivered via it's own http request so that the briwser can track if it hs changed and apply the service worker lifecycle. ther ServiceWorkerModule will trigger the loading of this file inderectly by calling `navigation.serviceWorker.register()`. 
+The `ngsw-worker.js` will always stay the same sinds it gets loaded in via node_modules. This file will stay the same until you upgrade to a new Angular version that contains a new version of the angular service worker. 
+#### `ngsw.json` file 
+is the runtime configuration file. The service worker will use this. This file is built based on the `ngsw-config.json` file. The information that the service worker needs is located here about which files to cache and when. 
+`example`:
+```json
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/inline.5646543f86fbfdc19b11.bundle.js",
+        "/main.3bb4e08c826e33bb0fca.bundle.js",
+        "/polyfills.55440df0c9305462dd41.bundle.js",
+        "/styles.1862c2c45c11dc3dbcf3.bundle.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/inline.5646543f86fbfdc19b11.bundle.js": "1028ce05cb8393bd53706064e3a8dc8f646c8039",
+    "/main.3bb4e08c826e33bb0fca.bundle.js": "ae15cc3875440d0185b46b4b73bfa731961872e0",
+    "/polyfills.55440df0c9305462dd41.bundle.js": "c3b13e2980f9515f4726fd2621440bd7068baa3b",
+    "/styles.1862c2c45c11dc3dbcf3.bundle.css": "3318b88e1200c77a5ff691c03ca5d5682a19b196",
+    "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "/index.html": "cfdca0ab1cec8379bbbf8ce4af2eaa295a3f3827"
+  }
+}
+```
+#### how does the service worker use `ngsw.json`?
+it is either going to load these files via `prefetch` or as needed in case of install mode `lazy`. It will store the file in `cache storage`.
+This is all going to happen in the background and when the user next revisited the page or reloads, it is going the serve the cached files. 
+It intercepts the http request. 
+### step FIVE:
 
 
 
