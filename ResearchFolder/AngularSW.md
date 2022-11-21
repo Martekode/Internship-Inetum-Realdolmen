@@ -299,3 +299,111 @@ this is how new application versions are managed by the angular service worker:
 and like this wer have a downloadable and installable angular PWA application with version controll. 
 `the last thing we need now is to ask the user to install the application to his or hers homescreen.`
 ### step SEVEN: 
+#### one click install with the app manifest
+this is entirely optional and therefor can run the angular service worker without any `app manifest` file. However in the oposite way this doesn't work. The app manifest file needs a service worker to operate. by providing a standard `manifest.json` file, the user will be asked to install the application on it's device. 
+#### when will this button be shown? 
+couple of requirements: 
+- the application needs to be run over https 
+- have a service worker.
+The option for installing the application to the homescreen will only be shown if certain extra conditions are met. It usually has to do with how many times the user has visited the page and how often. 
+`sample manifest.json`:
+```json
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "Angular PWA ",
+  "scope": "/",
+  "display": "fullscreen",
+  "start_url": "http://localhost:8080/",
+  "short_name": "Angular PWA",
+  "theme_color": "transparent",
+  "description": "Sample PWA App",
+  "orientation": "any",
+  "background_color": "transparent",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32"
+    },
+    {
+      "src": "/assets/android-icon-36x36.png",
+      "sizes": "36x36",
+      "type": "image/png",
+      "density": "0.75"
+    },
+    {
+      "src": "/assets/android-icon-48x48.png",
+      "sizes": "48x48",
+      "type": "image.png",
+      "density": "1.0"
+    },
+    {
+      "src": "/assets/android-icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "density": "1.5"
+    },
+    {
+      "src": "/assets/android-icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "density": "2.0"
+    },
+    {
+      "src": "/assets/android-icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "density": "3.0"
+    },
+    {
+      "src": "/assets/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "4.0"
+    }
+  ]
+}
+```
+we place this in the root of our application next to out index.html. 
+#### linking to the manifest file
+```html
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NgPwa</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="manifest" href="manifest.json">
+
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+```
+#### setup CLI to include app manifest
+to have this in our production build. we are going to tell the cli to copy the file to the dist folder. we can configure this inside the `angular.json` file.
+```json
+
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "manifest.json",
+        "favicon.ico"
+      ],
+    }
+  ]  
+```
+now we have a manifest.json in our production. but if we reload, most likely nothing will happen. 
+#### install to homescreen trigger
+inside the dev tools, if you click on manifest, you will get the option to install to homescreen. 
