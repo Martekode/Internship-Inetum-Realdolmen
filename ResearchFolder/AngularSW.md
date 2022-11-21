@@ -259,5 +259,43 @@ in the console though we will get the following message:
 #### An unknown error occurred when fetching the script. ngsw-worker.js Failed to load resource: net::ERR_CONNECTION_REFUSED. 
 It looks like the only file that tried being fetched was the service worker itself, but apparently that is normal. 
 ### step SIX:
+everytime that the user reloads the page, it's going to check to see if there is a new ngsw.json file available on the server. for example if the css changes in our new version, the service worker is going to know if it changed and based on that it's giong to download the css in the background and install it. The next time the uder refreshes the page, it is going to show the new css. 
+#### informing the user that a new version is available. 
+for long running SPA's that the user might have running for hours on end, we might want to check periodically of there is a new versiob available, download and install it. To do this we use SwUpdate service and it's checkForUpdate() method. In general we're not going to use this sinds on every pageload it is going to check for updates. However we can ask to get notified when there is a new version. This is done with teh observable of SWUpdate.
+```js
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent  implements OnInit {
 
+    constructor(private swUpdate: SwUpdate) {
+    }
 
+    ngOnInit() {
+
+        if (this.swUpdate.isEnabled) {
+
+            this.swUpdate.available.subscribe(() => {
+
+                if(confirm("New version available. Load New Version?")) {
+
+                    window.location.reload();
+                }
+            });
+        }        
+    }
+}
+```
+Once all the files for the new application version are loaded, the Angular Service Worker will emit the `available` event, meaning that a new version of the application is available. The user will then see the following:
+- you will get a popup that gives the option to load the new files. if the user presses 'ok' the application will reload and the new assets will be loaded. if this dialogue was not shown, the user would still see the new version anyway. 
+#### angular service worker version management summary
+this is how new application versions are managed by the angular service worker:
+- a new build occurs, and a new `ngsw.json` is available.
+- with the first application reload after the new versions is deployed the service worker is going to download and install the new files in the background.
+- second reload after new version deployement: the user sees the new version.
+- this behavior will work consistantly,regardless of the tabs open by the user. 
+and like this wer have a downloadable and installable angular PWA application with version controll. 
+`the last thing we need now is to ask the user to install the application to his or hers homescreen.`
+### step SEVEN: 
