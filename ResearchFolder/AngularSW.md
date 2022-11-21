@@ -166,6 +166,10 @@ The `assetGroups` section is there to configure exactly what https-requests get 
 - - favicon
 - entry named : `assets`. for any other assets also shipped in the `dist/`folder. `example`: images that are not neccesarily needed to run every page. 
 #### caching static files that are the application itself.
+the files under the `app` section, are the application itself. the index.html, css, javascript bundles are what every single page needs so they can't be lazy loaded. Want to cache these as early as possible. This is what the `app` caching configuration does. 
+these files are going to be downloaded and installed in the background by the service workers. this is what the install mode `prefetch` means.
 
+it is good to download and cache these files as early and permanently as posssible sinds we'll be needing these files for the application all the time.
+#### caching other auxiliary static assets. 
 
 
