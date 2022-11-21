@@ -29,6 +29,7 @@ now you'll have a dist folder and inside the `dist/service-worker-web-dev` direc
         ]
       }
     }
+  ]
 }
 ```
 this was added with the addition of `"/assets/*.png"`.
