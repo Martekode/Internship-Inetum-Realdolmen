@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from "cors";
+import packagesRoutes from './routes/packages.js';
 
 // put express functionality into app variable.
 const app = express();
@@ -14,7 +15,7 @@ app.get('/api' , (res,req) => {
     req.send('welcome to the api');
 });
 // here comes the routes needed
-
+app.use('/api/packages' , packagesRoutes);
 // port
 const PORT = process.env.PORT || 8081;
 // start the server
