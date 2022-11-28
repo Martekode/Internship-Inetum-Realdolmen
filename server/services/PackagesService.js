@@ -1,23 +1,27 @@
 import mysql from 'mysql';
+import * as env from 'dotenv';
+
 
 const Mysql = mysql;
 
 class PackagesService {
     static con;
-    static getAllPackagesQuery = 'SELECT * FROM Packages';
 
     constructor() {
+        env.config();
         this.con = Mysql.createConnection({
             host: "localhost",
-            user: "ATOMIUM\\BDMCO56",
-            password: "",
-            database: "Postal_IR"
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
+            database: "postal_ir"
         });
     }
 
     fireGetAllPackagesQuery(){
+        const getAllPackagesQuery = "SELECT * FROM Packages";
+
         return new Promise((resolve,reject) => {
-            this.con.query(this.getAllPackagesQuery, async (err,result,field) => {
+            this.con.query(getAllPackagesQuery, async (err,result,field) => {
                 if(err) throw err;
                 resolve(result);
             });
@@ -53,6 +57,12 @@ class PackagesService {
 
     fireDeletePackageQuery(id) {
         const deletePackageQuery = "DELETE FROM Packages WHERE ID = " + id;
+        return new Promise((resolve,reject) => {
+            this.con.query(deletePackageQuery, async function(err, result, field) {
+                if(err) throw err;
+                resolve(result);
+            });
+        });
     }
 }
 const PackagesServiceInstance = new PackagesService();
