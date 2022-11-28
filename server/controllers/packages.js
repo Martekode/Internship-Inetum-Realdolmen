@@ -1,24 +1,27 @@
-import PackagesServiceInstance from "../services/PackagesService";
+import PackagesServiceInstance from "../services/PackagesService.js";
 
-export const getPackages = async (req, res) => {
+export const getAllPackages = async (req, res) => {
     let packages = await PackagesServiceInstance.fireGetAllPackagesQuery();
     res.send(packages);
 }
 
-export const getBook = async (req , res) => {
+export const getPackage = async (req , res) => {
     //logic
     const { id } = req.params;
     let singlePackage = await BookServiceInstance.fireSinglePackageQuery(id);
     res.send(singlePackage);
 };
 
-export const createBook = (req , res) => {
+export const createPackage = (req , res) => {
     const { body } = req;
-    PackagesServiceInstance.fireCreateBookQuery(body);
+    PackagesServiceInstance.fireCreatePackageQuery(body);
     res.send("Package created successfully");
     //logic
 };
 
 export const deletePackage = (req,res) => {
     // logic
+    const {id} = req.params;
+    PackagesServiceInstance.fireDeletePackageQuery(id);
+    res.send("Package deleted successfully");
 }
