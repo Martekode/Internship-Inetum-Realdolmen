@@ -29,9 +29,9 @@
   ],
   "dataGroups": [
     {
-      "name": "pokeAPI",
+      "name": "PackagesAPI",
       "urls": [
-        "https://pokeapi.co/api/v2/pokemon/ditto"
+        "http://localhost:8081/api/packages/"
       ],
       "cacheConfig": {
         "strategy": "performance",

@@ -9,7 +9,7 @@ import { DataService } from './data.service';
 })
 export class AppComponent {
   title = 'angular-pwa-app';
-  pokemon: any;
+  packages: any;
   constructor(private updates: SwUpdate,private data: DataService){
     this.updates.available.subscribe(event => {
       updates.activateUpdate().then(()=> document.location.reload());
@@ -17,8 +17,8 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    this.data.giveMePokemon().subscribe(res => {
-      this.pokemon = res;
+    this.data.giveMeAllPackages().subscribe(res => {
+      this.packages = res;
     })
   }
 }

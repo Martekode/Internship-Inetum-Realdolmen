@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1669382730787,
+  "timestamp": 1669733844231,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.6f597969c608ff5a.js",
+        "/main.a65d402947ed5145.js",
         "/manifest.webmanifest",
         "/polyfills.cc30d5ec8bf80490.js",
         "/runtime.a8d26e757eb83026.js",
@@ -43,9 +43,9 @@
   ],
   "dataGroups": [
     {
-      "name": "pokeAPI",
+      "name": "PackagesAPI",
       "patterns": [
-        "https:\\/\\/pokeapi\\.co\\/api\\/v2\\/pokemon\\/ditto"
+        "http:\\/\\/localhost:8081\\/api\\/packages\\/"
       ],
       "strategy": "performance",
       "maxSize": 100,
@@ -66,8 +66,8 @@
     "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/index.html": "3916bcdd678db83cfccffa03f21b917d69e3be2f",
-    "/main.6f597969c608ff5a.js": "6ccdf5d3448d99add7fd11b6c38b33a94c7fdcba",
+    "/index.html": "0bcc4d7815391a78046cfae06bb1b458fe4e66e7",
+    "/main.a65d402947ed5145.js": "596d79c38b707220bf7b59dab960d5133d2f9bc7",
     "/manifest.webmanifest": "ccd3e1a5912adcc16f66473d4cba3e30f2bc0f04",
     "/polyfills.cc30d5ec8bf80490.js": "7c8962110968f22b3c70d492e81f5b18b02212d7",
     "/runtime.a8d26e757eb83026.js": "41b26b04dab38db75b5ae275da70550d2ed6d041",

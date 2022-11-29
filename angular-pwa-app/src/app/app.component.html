@@ -1,3 +1,3 @@
-<h1>Pokemon</h1>
-<p *ngIf="pokemon">{{pokemon.name}}</p>
-<p *ngIf="pokemon">{{pokemon.id}}</p>
+<ng-template ngFor let-package [ngForOf]="packages" let-i="index">
+    <li>{{package.adressed_name}}</li>
+  </ng-template>
