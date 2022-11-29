@@ -8,7 +8,7 @@ export const getAllPackages = async (req, res) => {
 export const getPackage = async (req , res) => {
     //logic
     const { id } = req.params;
-    let singlePackage = await BookServiceInstance.fireSinglePackageQuery(id);
+    let singlePackage = await PackagesServiceInstance.fireSinglePackageQuery(id);
     res.send(singlePackage);
 };
 
