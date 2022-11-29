@@ -1,5 +1,5 @@
 import mysql from 'mysql';
-import * as env from 'dotenv';
+import DBConnectionServiceInstance from './DBConnectionService.js';
 
 
 const Mysql = mysql;
@@ -8,13 +8,7 @@ class PackagesService {
     static con;
 
     constructor() {
-        env.config();
-        this.con = Mysql.createConnection({
-            host: "localhost",
-            user: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: "postal_ir"
-        });
+        this.con = DBConnectionServiceInstance.con;
     }
 
     fireGetAllPackagesQuery(){
@@ -68,4 +62,4 @@ class PackagesService {
 const PackagesServiceInstance = new PackagesService();
 Object.freeze(PackagesServiceInstance);
 
-export default PackagesServiceInstance
+export default PackagesServiceInstance;
