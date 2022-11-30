@@ -10,6 +10,7 @@ export class PackageComponent {
 }
 
 interface IPackage {
+  id : number;
   street_name : string;
   house_number : number;
   postal_code : number;
