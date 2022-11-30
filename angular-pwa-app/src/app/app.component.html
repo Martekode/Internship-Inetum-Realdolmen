@@ -1,3 +1,3 @@
-<ng-template ngFor let-package [ngForOf]="packages" let-i="index">
-    <li>{{package.adressed_name}}</li>
-  </ng-template>
+<ng-template *ngIf="packages" ngFor let-package [ngForOf]="packages" let-i="index">
+    <app-package [Package]="package"></app-package>
+</ng-template>

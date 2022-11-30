@@ -6,10 +6,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './data.service';
+import { PackageComponent } from './package/package.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PackageComponent
   ],
   imports: [
     HttpClientModule,
