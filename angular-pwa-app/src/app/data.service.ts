@@ -5,10 +5,26 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 export class DataService {
-
+  static baseUrl = "http://localhost:8081/api/packages/";
+  public status = "";
+  public errorMessage = "";
   constructor(private http: HttpClient) { }
 
   giveMeAllPackages(){
     return this.http.get('http://localhost:8081/api/packages/');
+  }
+
+  deletePackage(id:any){
+    console.log(`${DataService.baseUrl}${id}`);
+    this.http.delete(`${DataService.baseUrl}${id}`)
+    .subscribe({
+        next: data => {
+            this.status = 'Delete successful';
+        },
+        error: error => {
+            this.errorMessage = error.message;
+            console.error('There was an error!', error);
+        }
+    });
   }
 }
