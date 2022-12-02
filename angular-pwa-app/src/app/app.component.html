@@ -1,6 +1,24 @@
 <div class="headertext">
     <h1>Postal_IR</h1>
 </div>
-<ng-template *ngIf="packages" ngFor let-package [ngForOf]="packages" let-i="index">
-    <app-package [Package]="package"></app-package>
-</ng-template>
+<div class="container">
+    <table class="tableContainer">
+        <tr class="tableHeaderBGColor">
+            <th>ID</th>
+            <th>adressed person</th>
+            <th>street</th>
+            <th>house number</th>
+            <th>postal code</th>
+            <th>delete</th>
+        </tr>
+        <tr *ngFor="let package of packages">
+                <!-- <app-package [Package]="package"></app-package> -->
+                <td>{{package.id}}</td>
+                <td>{{package.adressed_name}}</td>
+                <td>{{package.street_name}}</td>
+                <td>{{package.house_number}}</td>
+                <td>{{package.postal_code}}</td>
+                <td><button class="deleteButton" (click)="DeletePackage(package.id)">X</button></td>
+        </tr>
+    </table>
+</div>

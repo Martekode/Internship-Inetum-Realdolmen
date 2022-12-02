@@ -1,5 +1,42 @@
 .headertext{
-    width: 30%;
+    width: 100vw;
     text-align: center;
+    background-color: black;
+    margin:0;
+    color: grey;
+}
+h1{
+    margin:unset;
+}
+.tableContainer{
+    text-align: center;
+    border-radius:5px;
     margin-inline:auto;
+}
+.tableHeaderBGColor{
+    background-color: rgb(236, 81, 81);
+    margin: 0;
+}
+.container{
+    width: 80%;
+    border: 1px solid white;
+    background-color: white;
+    opacity: 80%;
+    border-radius: 20px;
+    margin-inline:auto;
+    margin-top: 1em;
+    color: rgb(46, 45, 45);
+}
+.deleteButton{
+    color: white;
+    background-color: red;
+    border-color: red;
+}
+.deleteButton:hover{
+    background-color: blue;
+    border-color: blue;
+}
+td{
+    border-right: 2px solid rgb(236, 81, 81);
+    margin: unset;
 }

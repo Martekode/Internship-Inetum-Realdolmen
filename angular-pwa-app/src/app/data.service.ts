@@ -17,14 +17,7 @@ export class DataService {
   deletePackage(id:any){
     console.log(`${DataService.baseUrl}${id}`);
     this.http.delete(`${DataService.baseUrl}${id}`)
-    .subscribe({
-        next: data => {
-            this.status = 'Delete successful';
-        },
-        error: error => {
-            this.errorMessage = error.message;
-            console.error('There was an error!', error);
-        }
-    });
+    .subscribe();
+    window.location.reload();
   }
 }

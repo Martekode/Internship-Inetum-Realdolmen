@@ -15,6 +15,10 @@ export class AppComponent {
       updates.activateUpdate().then(()=> document.location.reload());
     })
   }
+  
+  public DeletePackage(id:any){
+    this.data.deletePackage(id);
+  }
 
   ngOnInit(){
     this.data.giveMeAllPackages().subscribe(res => {
