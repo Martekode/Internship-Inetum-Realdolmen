@@ -34,7 +34,7 @@
         "http://localhost:8081/api/packages/"
       ],
       "cacheConfig": {
-        "strategy": "performance",
+        "strategy": "freshness",
         "maxSize": 100,
         "maxAge": "3d"
       }

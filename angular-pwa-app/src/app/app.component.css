@@ -1,42 +1,51 @@
 .headertext{
     width: 100vw;
     text-align: center;
-    background-color: black;
+    background-color: #009879;
     margin:0;
-    color: grey;
+    color: #ffffff;
+    padding-top:1em;
+    padding-bottom: 1em;
 }
 h1{
     margin:unset;
 }
-.tableContainer{
-    text-align: center;
-    border-radius:5px;
-    margin-inline:auto;
-}
-.tableHeaderBGColor{
-    background-color: rgb(236, 81, 81);
-    margin: 0;
-}
-.container{
-    width: 80%;
-    border: 1px solid white;
-    background-color: white;
-    opacity: 80%;
-    border-radius: 20px;
-    margin-inline:auto;
-    margin-top: 1em;
-    color: rgb(46, 45, 45);
-}
 .deleteButton{
     color: white;
-    background-color: red;
-    border-color: red;
+    background-color: rgb(201, 103, 103);
+    border-color: rgb(204, 110, 110);
+    min-width: 35px;
+    min-height: 35px;
+    border-radius: 5px;
 }
 .deleteButton:hover{
-    background-color: blue;
-    border-color: blue;
+    background-color: #009879;
+    border-color: #009879;
+    transition: 0.5s;
+    transform: scale(1.2);
 }
-td{
-    border-right: 2px solid rgb(236, 81, 81);
-    margin: unset;
+.content-table{
+    border-collapse: collapse;
+    width:70%;
+    margin-inline:auto;
+    margin-top: 2em;
+}
+.content-table thead tr{
+    background-color: #009879;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+}
+.content-table th,
+.content-table td{
+    padding: 12px 15px;
+}
+.content-table tbody tr{
+    border-bottom: 1px solid rgb(60, 59, 59);
+}
+.content-table tbody tr:nth-of-type(even){
+    background-color: rgb(37, 36, 36);
+}
+.content-table tbody tr:last-of-type{
+    border-bottom:3px solid #009879;
 }

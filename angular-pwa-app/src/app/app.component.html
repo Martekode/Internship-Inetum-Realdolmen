@@ -1,17 +1,20 @@
 <div class="headertext">
     <h1>Postal_IR</h1>
 </div>
-<div class="container">
-    <table class="tableContainer">
-        <tr class="tableHeaderBGColor">
-            <th>ID</th>
-            <th>adressed person</th>
-            <th>street</th>
-            <th>house number</th>
-            <th>postal code</th>
-            <th>delete</th>
-        </tr>
-        <tr *ngFor="let package of packages">
+<app-package></app-package>
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ADRESSED PERSON</th>
+                <th>STREETNAME</th>
+                <th>HOUSE NUMBER</th>
+                <th>POSTAL CODE</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let package of packages">
                 <!-- <app-package [Package]="package"></app-package> -->
                 <td>{{package.id}}</td>
                 <td>{{package.adressed_name}}</td>
@@ -19,6 +22,6 @@
                 <td>{{package.house_number}}</td>
                 <td>{{package.postal_code}}</td>
                 <td><button class="deleteButton" (click)="DeletePackage(package.id)">X</button></td>
-        </tr>
+            </tr>
+        </tbody>
     </table>
-</div>
