@@ -1,2 +1,13 @@
 <div class="createFormPanel">
+    <form [formGroup]="createPackageForm" (ngSubmit)="onSubmit()">
+        <label for="street_name">STREET NAME</label>
+        <input type="text" name="street_name" class="packageInputs" formControlName="street_name">
+        <label for="house_number">HOUSE NUMBER</label>
+        <input type="text" name="house_number" class="packageInputs" formControlName="house_number">
+        <label for="postal_code">POSTAL CODE</label>
+        <input type="text" name="postal_code" class="packageInputs" formControlName="postal_code">
+        <label for="adressed_name">RECEIVER</label>
+        <input type="text" name="adressed_name" class="packageInputs" formControlName="adressed_name">
+        <input type="submit" class="packageSubmitBtn">
+    </form>
 </div>
