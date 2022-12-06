@@ -1,4 +1,5 @@
 <div class="createFormPanel">
+    <p style="color:red;" *ngIf="isEmptyForm">please fill in all the input fields</p>
     <form [formGroup]="createPackageForm" (ngSubmit)="onSubmit()">
         <label for="street_name">STREET NAME</label>
         <input type="text" name="street_name" class="packageInputs" formControlName="street_name">

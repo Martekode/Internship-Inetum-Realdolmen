@@ -12,6 +12,7 @@ export class PackageComponent {
 
 @Input() Package = {} as IPackage;
 createPackageForm : FormGroup;
+isEmptyForm : boolean = false;
 static baseUrl = "http://localhost:8081/api/packages/";
 
 constructor(private http : HttpClient, private data : DataService){
@@ -27,8 +28,15 @@ public DeletePackage(id:any){
   this.data.deletePackage(id);
 }
 onSubmit(){
-  console.log(this.createPackageForm.value);
-}
+  if(Object.values(this.createPackageForm.value).includes('' || null)){
+    this.isEmptyForm = true
+    return;
+  }else{
+    this.isEmptyForm = false;
+    // here comes the logic to push the actual data tot de DB
+    this.data.createPackage(this.createPackageForm.value);
+    }
+  }
 }
 
 interface IPackage {

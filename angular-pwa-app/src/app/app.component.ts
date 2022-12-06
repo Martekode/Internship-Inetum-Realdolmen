@@ -12,7 +12,7 @@ export class AppComponent {
   packages: any;
   constructor(private updates: SwUpdate,private data: DataService){
     this.updates.available.subscribe(event => {
-      updates.activateUpdate().then(()=> document.location.reload());
+      updates.activateUpdate().then(()=> window.location.reload());
     })
   }
   

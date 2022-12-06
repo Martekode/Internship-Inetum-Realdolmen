@@ -8,16 +8,21 @@ export class DataService {
   static baseUrl = "http://localhost:8081/api/packages/";
   public status = "";
   public errorMessage = "";
+
   constructor(private http: HttpClient) { }
 
   giveMeAllPackages(){
-    return this.http.get('http://localhost:8081/api/packages/');
+    return this.http.get(DataService.baseUrl);
   }
 
   deletePackage(id:any){
-    console.log(`${DataService.baseUrl}${id}`);
     this.http.delete(`${DataService.baseUrl}${id}`)
     .subscribe();
     window.location.reload();
   }
+
+  createPackage(obj:object){
+    this.http.post(DataService.baseUrl,obj).subscribe();
+    window.location.reload();
+    }
 }
