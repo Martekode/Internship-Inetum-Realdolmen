@@ -15,7 +15,14 @@
         </thead>
         <tbody>
             <tr *ngFor="let package of packages">
-                <!-- <app-package [Package]="package"></app-package> -->
+                <td>{{package.id}}</td>
+                <td>{{package.adressed_name}}</td>
+                <td>{{package.street_name}}</td>
+                <td>{{package.house_number}}</td>
+                <td>{{package.postal_code}}</td>
+                <td><button class="deleteButton" (click)="DeletePackage(package.id)">X</button></td>
+            </tr>
+            <tr *ngFor="let package of sessionPackages">
                 <td>{{package.id}}</td>
                 <td>{{package.adressed_name}}</td>
                 <td>{{package.street_name}}</td>
