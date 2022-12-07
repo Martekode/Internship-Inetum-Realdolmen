@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DataService } from '../data.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-package',
@@ -22,12 +22,30 @@ constructor(private data : DataService){
   // creating a formgroup to bind the values of the form to an object.
   // to the createPackageform.value.
   this.createPackageForm = new FormGroup({
-    street_name: new FormControl(),
-    house_number: new FormControl(),
-    postal_code: new FormControl(),
-    adressed_name: new FormControl()
+    street_name: new FormControl(null,[
+      Validators.required,
+      Validators.minLength(6)
+    ]),
+    house_number: new FormControl(null , [
+      Validators.required,
+      Validators.pattern(/^[0-9]+$/)
+    ]),
+    postal_code: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4),
+      Validators.pattern(/^[0-9]+$/)
+    ]),
+    adressed_name: new FormControl(null, [
+      Validators.required,
+      Validators.pattern(/^[A-Za-z ]+$/)
+    ])
   });
 }
+
+get streetName() {return this.createPackageForm.get('street_name')}
+get houseNumber() {return this.createPackageForm.get('house_number')}
+get postalCode() {return this.createPackageForm.get('postal_code')}
+get adressedName() {return this.createPackageForm.get('adressed_name')}
 
 public DeletePackage(id:any){
   // fires the delete package function to remove set package from 
