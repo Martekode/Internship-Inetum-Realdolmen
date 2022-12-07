@@ -14,7 +14,7 @@ export class PackageComponent {
 
 // some properties needed for the application to work.
 createPackageForm : FormGroup;
-isEmptyForm : boolean = false;
+isInvalidForm : boolean = false;
 createPackageArray : Array<Object> = [];
 static baseUrl = "http://localhost:8081/api/packages/";
 
@@ -73,13 +73,13 @@ onSubmit(){
     }
   }
 onValidationCreation(){
-  if(Object.values(this.createPackageForm.value).includes('' || null)){
+  if(!this.createPackageForm.valid){
     // sets it to true so that the client displays a message that the forms 
     // need to be filled in.
-    this.isEmptyForm = true
+    this.isInvalidForm = true;
     return;
   }else{
-    this.isEmptyForm = false;
+    this.isInvalidForm = false;
     // posting the package to the database
     this.data.createPackage(this.createPackageForm.value);
     return;
