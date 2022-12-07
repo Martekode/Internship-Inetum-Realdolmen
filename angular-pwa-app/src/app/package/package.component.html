@@ -1,33 +1,34 @@
 <div class="createFormPanel">
-    <p style="color:red;" *ngIf="isEmptyForm">please fill in all the input fields</p>
+    <p class="errorCode" *ngIf="isEmptyForm">please fill in all the input fields</p>
     <form [formGroup]="createPackageForm" (ngSubmit)="onSubmit()">
 
         <div *ngIf="streetName?.invalid && streetName?.touched">
-            <p *ngIf="streetName?.errors?.['required']" style="color: red;">Street name is required</p>
-            <p *ngIf="streetName?.errors?.['minlength']" style="color: red;">Must have a minimum length of 6 characters</p>
+            <p *ngIf="streetName?.errors?.['required']" class="errorCode">Street name is required</p>
+            <p *ngIf="streetName?.errors?.['minlength']" class="errorCode">Must have a minimum length of 6 characters</p>
+            <p class="errorCode" *ngIf="streetName?.errors?.['pattern']">street name can't have any numbers!</p>
         </div>
         <label for="street_name">STREET NAME</label>
         <input type="text" name="street_name" class="packageInputs" formControlName="street_name">
 
         <div *ngIf="houseNumber?.invalid && houseNumber?.touched">
-            <p *ngIf="houseNumber?.errors?.['required']" style="color: red;">House number is required</p>
-            <p *ngIf="houseNumber?.errors?.['pattern']" style="color: red;">House number must contain only numbers</p>
+            <p *ngIf="houseNumber?.errors?.['required']" class="errorCode">House number is required</p>
+            <p *ngIf="houseNumber?.errors?.['pattern']" class="errorCode">House number must contain only numbers</p>
         </div>
         <label for="house_number">HOUSE NUMBER</label>
         <input type="text" name="house_number" class="packageInputs" formControlName="house_number">
 
         <div *ngIf="postalCode?.invalid && postalCode?.touched">
-            <p style="color: red;" *ngIf="postalCode?.errors?.['required']">Postal code is required!</p>
-            <p style="color: red;" *ngIf="postalCode?.errors?.['minlength']">Postal code must be at least <em>4</em> characters long</p>
-            <p *ngIf="postalCode?.errors?.['pattern']" style="color: red;">Postal code must contain only numbers</p>
+            <p class="errorCode" *ngIf="postalCode?.errors?.['required']">Postal code is required!</p>
+            <p class="errorCode" *ngIf="postalCode?.errors?.['minlength']">Postal code must be at least <em>4</em> characters long</p>
+            <p *ngIf="postalCode?.errors?.['pattern']" class="errorCode">Postal code must contain only numbers</p>
 
         </div>
         <label for="postal_code">POSTAL CODE</label>
         <input type="text" name="postal_code" class="packageInputs" formControlName="postal_code">
 
         <div *ngIf="adressedName?.invalid && adressedName?.touched">
-            <p *ngIf="adressedName?.errors?.['required']" style="color: red;">The adressed parsons name must be filled in!</p>
-            <p *ngIf="adressedName?.errors?.['pattern']" style="color:red;">The adressed person can't have numbers in their name</p>
+            <p *ngIf="adressedName?.errors?.['required']" class="errorCode">The adressed parsons name must be filled in!</p>
+            <p *ngIf="adressedName?.errors?.['pattern']" class="errorCode">The adressed person can't have numbers in their name</p>
         </div>
         <label for="adressed_name">RECEIVER</label>
         <input type="text" name="adressed_name" class="packageInputs" formControlName="adressed_name">
