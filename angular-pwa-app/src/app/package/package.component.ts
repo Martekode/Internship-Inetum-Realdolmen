@@ -88,7 +88,7 @@ onValidationCreation(){
 }
 
 // created a DTO so the front end knows whats inside the Package object.
-interface IPackage {
+export interface IPackage {
   id : number;
   street_name : string;
   house_number : number;
