@@ -24,7 +24,8 @@ constructor(private data : DataService){
   this.createPackageForm = new FormGroup({
     street_name: new FormControl(null,[
       Validators.required,
-      Validators.minLength(6)
+      Validators.minLength(6),
+      Validators.pattern(/^[A-Za-z ]+$/)
     ]),
     house_number: new FormControl(null , [
       Validators.required,
@@ -42,6 +43,7 @@ constructor(private data : DataService){
   });
 }
 
+// getters to access the properties in the frontend, so we can check the validation in the client
 get streetName() {return this.createPackageForm.get('street_name')}
 get houseNumber() {return this.createPackageForm.get('house_number')}
 get postalCode() {return this.createPackageForm.get('postal_code')}
