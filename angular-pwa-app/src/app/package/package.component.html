@@ -1,5 +1,5 @@
 <div class="createFormPanel">
-    <p class="errorCode" *ngIf="isEmptyForm">please fill in all the input fields</p>
+    <p class="errorCode" *ngIf="isInvalidForm">please fill in all the input fields correctly before submitting!</p>
     <form [formGroup]="createPackageForm" (ngSubmit)="onSubmit()">
 
         <div *ngIf="streetName?.invalid && streetName?.touched">
