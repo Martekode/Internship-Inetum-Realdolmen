@@ -66,9 +66,7 @@ onSubmit(){
     case false:
       // pushing the package to an array if there is no connection and 
       // storing it in the session as a string.
-      this.createPackageArray.push(this.createPackageForm.value);
-      const stringCreatePackageArray = JSON.stringify(this.createPackageArray);
-      sessionStorage.setItem("posts", stringCreatePackageArray);
+      this.handleOfflinePackageCreation();
       break;
     }
   }
@@ -84,6 +82,13 @@ onValidationCreation(){
     this.data.createPackage(this.createPackageForm.value);
     return;
     }
+  }
+
+  handleOfflinePackageCreation(){
+    this.createPackageArray.push(this.createPackageForm.value);
+    const stringCreatePackageArray = JSON.stringify(this.createPackageArray);
+    sessionStorage.setItem("posts", stringCreatePackageArray);
+    // window.location.reload();
   }
 }
 
