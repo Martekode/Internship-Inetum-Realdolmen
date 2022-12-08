@@ -2,7 +2,7 @@
     <h1>Postal_IR</h1>
 </div>
 <app-package></app-package>
-    <table class="content-table">
+    <table class="content-table" id="packageTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -13,8 +13,8 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-            <tr *ngFor="let package of packages">
+        <tbody id="packageTableBody">
+            <tr *ngFor="let package of packages" id="{{package.id}}">
                 <td>{{package.id}}</td>
                 <td>{{package.adressed_name}}</td>
                 <td>{{package.street_name}}</td>
@@ -22,13 +22,12 @@
                 <td>{{package.postal_code}}</td>
                 <td><button class="deleteButton" (click)="DeletePackage(package.id)">X</button></td>
             </tr>
-            <tr *ngFor="let package of sessionPackages">
-                <td>{{package.id}}</td>
+            <tr *ngFor="let package of sessionPackages" class="default">
+                <td>To upload</td>
                 <td>{{package.adressed_name}}</td>
                 <td>{{package.street_name}}</td>
                 <td>{{package.house_number}}</td>
                 <td>{{package.postal_code}}</td>
-                <td><button class="deleteButton" (click)="DeletePackage(package.id)">X</button></td>
             </tr>
         </tbody>
     </table>
