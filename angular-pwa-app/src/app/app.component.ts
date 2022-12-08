@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { DataService } from './data.service';
 import { IPackage } from './package/package.component';
@@ -11,21 +12,44 @@ import { IPackage } from './package/package.component';
 export class AppComponent {
   title = 'angular-pwa-app';
   packages: any;
+  table;
   sessionPackages : Array<IPackage> = [];
-  constructor(private updates: SwUpdate,private data: DataService){
+  sessionDeletes : Array<string> = [];
+
+
+  constructor(private updates: SwUpdate,private data: DataService,@Inject(DOCUMENT) private document : Document){
+    this.table = this.document.getElementById('packageTableBody')
     this.updates.available.subscribe(event => {
       updates.activateUpdate().then(()=> window.location.reload());
     })
   }
   
-  public DeletePackage(id:any){
-    this.data.deletePackage(id);
+  public DeletePackage(id:string){
+    switch (navigator.onLine){
+      case true:
+        this.data.deletePackage(id);
+        break;
+      case false:
+        this.handleOfflineDeletes(id);
+        // this.handleDeleteVisual(id); broken!!! can't find the document.getelementbug
+        break;
+    }
+    
+  }
+
+  handleDeleteVisual(id :string){
+    console.log("handle offline visual fired");
+    const deleteElement : any = this.document.getElementById(id);
+    this.table?.removeChild(deleteElement);
   }
 
   ngOnInit(){
+    // just a console log to see what's inside the cache. 
+    console.log(CacheStorage);
     switch (navigator.onLine){
       case true:
         this.createPackagesFromSession();
+        this.deletePackagesFromSession();
         break;
       case false:
         this.handleOfflineSessionPackages();
@@ -47,11 +71,31 @@ export class AppComponent {
       this.sessionPackages = [];
     }
   }
+
   handleOfflineSessionPackages(){
-    const newEntries = JSON.parse(sessionStorage['posts']);
-    newEntries.forEach((obj : IPackage) => {
-      this.sessionPackages.push(obj);
-    });
-    window.location.reload();
+    if(sessionStorage['posts']){
+      const newEntries = JSON.parse(sessionStorage['posts']);
+      newEntries.forEach((obj : IPackage) => {
+        this.sessionPackages.push(obj);
+      });
+      window.location.reload();
+    }
+  }
+
+  handleOfflineDeletes(id:string){
+        this.sessionDeletes.push(id);
+        const newDeletes = JSON.stringify(this.sessionDeletes);
+        sessionStorage.setItem('deletes',newDeletes);
+  }
+  
+  deletePackagesFromSession(){
+    if(sessionStorage['deletes']){
+      const newDeletes = JSON.parse(sessionStorage['deletes']);
+      newDeletes.forEach((item:string) => {
+        this.data.deletePackage(item);
+      });
+      sessionStorage.removeItem('deletes');
+      this.sessionDeletes = [];
+    }
   }
 }
