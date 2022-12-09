@@ -57,6 +57,7 @@ public DeletePackage(id:any){
   this.data.deletePackage(id);
 }
 onSubmit(){
+  console.log('submit hit')
   switch(navigator.onLine){
     case true:
       // fires the validation and if validated fires the post of the 
@@ -85,10 +86,11 @@ onValidationCreation(){
   }
 
   handleOfflinePackageCreation(){
+    console.log('handle offline packages submit hit')
     this.createPackageArray.push(this.createPackageForm.value);
     const stringCreatePackageArray = JSON.stringify(this.createPackageArray);
     sessionStorage.setItem("posts", stringCreatePackageArray);
-    // window.location.reload();
+    window.location.reload();
   }
 }
 

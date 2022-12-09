@@ -10,6 +10,9 @@
 h1{
     margin:unset;
 }
+.hidden{
+    display: none;
+}
 .deleteButton{
     color: white;
     background-color: rgb(201, 103, 103);
