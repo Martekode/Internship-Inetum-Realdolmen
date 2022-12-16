@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { DataService } from './data.service';
 import { IPackage } from './package/package.component';
-import { OnInit } from '@angular/core'
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -39,8 +39,7 @@ export class AppComponent implements OnInit {
         // if NO con then make invisible
         this.handleDeleteVisual(id);
         break;
-    }
-    
+    } 
   }
 
   handleDeleteVisual(id :string){
@@ -49,19 +48,49 @@ export class AppComponent implements OnInit {
     element?.classList.add('hidden');
   }
 
-  handleOfflineSessionDeletesVisual(){
+  async handleOfflineSessionDeletesVisual(){
     // if deletes inside session storage
     if(sessionStorage['deletes']){
+      // THIS WORKS
       // settimeout needed to access the DOM, oninit it is null otherwise
       // I tried afterviewinit too but doesn't work either
       // definitly better way of doing it out there
-      setTimeout(() => {
-        const sessionDeletes = JSON.parse(sessionStorage['deletes']);
-        sessionDeletes.forEach((item : IToDelete) =>{
-          const element = this.document.getElementById(item.ID);
-          element?.classList.add('hidden');
+      // setTimeout(() => {
+      //   const sessionDeletes = JSON.parse(sessionStorage['deletes']);
+      //   sessionDeletes.forEach((item : IToDelete) =>{
+      //     const element = this.document.getElementById(item.ID);
+      //     element?.classList.add('hidden');
+      //   })
+      // }, 100);
+      const request = new Request('http://localhost:8081/api/packages/', {
+        method : 'GET'
       })
-      }, 100);
+
+
+      const res = await caches.match(request).then(function(response) {
+        if (response) {
+          // If a response is found in the cache, return it
+          return response;
+        } else {
+          // If a response is not found in the cache, fetch it from the network
+          return 'not found';
+        }
+      });
+      console.log(caches.keys());
+      console.log(await res);
+      
+      // THIS IS MY TRY WITH PROMISES --> THIS RETURNS NULL SO DOESN'T WORK.
+      // const sessionDeletes = JSON.parse(sessionStorage['deletes']);
+      // sessionDeletes.forEach((obj:IToDelete)=>{
+      //   const DOMelement = this.document.getElementById(`${obj.ID}`);
+      //   const DOMpromise = Promise.resolve(DOMelement);
+      //   DOMpromise.then((element)=>{
+      //     console.log('dompromise hit');
+      //     console.log(element);
+      //     element?.classList.add('hidden');
+      //   })
+      // })
+      
     }
   }
 
@@ -90,7 +119,6 @@ export class AppComponent implements OnInit {
     // so i handled it ugly and only visibly 
     this.handleOfflineSessionDeletesVisual();
   }
-
 
   createPackagesFromSession(){
     // if posts in session storage 
