@@ -19,3 +19,4 @@ today i started again with researching about workbox and react compatibility. Af
 Today I'll be working on the research further of angular. I'll write down some steps and provide the resource.
 ### 14 - 15/12
 I am trying to understand how the caches methods work in order to see if i can access the data. If so, I want to look into modifying it so that i can easily manipulate the data and therefore solve some problems when trying to delete packages in offline mode. 
+- [findings]('./FindingsCachesMethods.md')
