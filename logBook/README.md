@@ -17,3 +17,5 @@ finished up the research from the docs. Started research around using workbox re
 today i started again with researching about workbox and react compatibility. After that i started on researching into angular with service workers. I'm not done with this sinds it's not as straightforward.
 ### 21/11 
 Today I'll be working on the research further of angular. I'll write down some steps and provide the resource.
+### 14 - 15/12
+I am trying to understand how the caches methods work in order to see if i can access the data. If so, I want to look into modifying it so that i can easily manipulate the data and therefore solve some problems when trying to delete packages in offline mode. 
