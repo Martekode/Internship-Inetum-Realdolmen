@@ -4,6 +4,8 @@ import { SwUpdate } from '@angular/service-worker';
 import { DataService } from './data.service';
 import { IPackage } from './package/package.component';
 import { OnInit } from '@angular/core';
+import { NgxIndexedDBService} from 'ngx-indexed-db';
+
 
 @Component({
   selector: 'app-root',
@@ -16,15 +18,25 @@ export class AppComponent implements OnInit {
   table;
   sessionPackages : Array<IPackage> = [];
   sessionDeletes : Array<IToDelete> = [];
+  indexedDB = window.indexedDB;
+  request :any;
+  db:any;
+  packageStore:any;
 
-
-  constructor(private updates: SwUpdate,private data: DataService,@Inject(DOCUMENT) private document : Document){
+  constructor(private updates: SwUpdate,private data: DataService,@Inject(DOCUMENT) private document : Document, private dbService : NgxIndexedDBService){
     this.table = this.document.getElementById('packageTableBody')
     this.updates.available.subscribe(event => {
       updates.activateUpdate().then(()=> window.location.reload());
     })
+    
+    this.dbService.add('packages', { id: 1, street_name:"ekkerputstraat", house_number:200 , postal_code:9000 , adressed_name:"jhon" }).subscribe(
+      () => { console.log('success'); },
+      () => { console.log('error'); }
+    );
+
+    
   }
-  
+
   public DeletePackage(id:string){
     // when this func fires from button press
     // check for con
@@ -62,15 +74,18 @@ export class AppComponent implements OnInit {
       //     element?.classList.add('hidden');
       //   })
       // }, 100);
+
+
       const request = new Request('http://localhost:8081/api/packages/', {
         method : 'GET'
       })
 
-
-      const res = await caches.match(request).then(function(response) {
+      const res = await caches.match(request).then(async function(response) {
         if (response) {
           // If a response is found in the cache, return it
-          return response;
+          return await response.json().then((data)=>{
+            return data;
+          });
         } else {
           // If a response is not found in the cache, fetch it from the network
           return 'not found';
