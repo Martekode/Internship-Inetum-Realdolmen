@@ -28,13 +28,6 @@ export class AppComponent implements OnInit {
     this.updates.available.subscribe(event => {
       updates.activateUpdate().then(()=> window.location.reload());
     })
-    
-    this.dbService.add('packages', { id: 1, street_name:"ekkerputstraat", house_number:200 , postal_code:9000 , adressed_name:"jhon" }).subscribe(
-      () => { console.log('success'); },
-      () => { console.log('error'); }
-    );
-
-    
   }
 
   public DeletePackage(id:string){
@@ -128,6 +121,16 @@ export class AppComponent implements OnInit {
     // SW is goin to show cached if no con.
     this.data.giveMeAllPackages().subscribe(res => {
       this.packages = res;
+      this.dbService.clear('packages').subscribe(
+        () => {console.log('clear success')},
+        (error) => {console.log('clear error', error)}
+      );
+      this.packages.forEach((singlePackage : IPackage)=>{
+        this.dbService.add('packages',singlePackage).subscribe(
+          () => {console.log('adding packagesnto idb succes')},
+          (error) => {console.log('adding packages to idb error', error)}
+        )
+      })
     })
     // theis is ugly code!!! I couldn't find a way to access the cacheStorage
     // sinds service worker only resides in dist/ folder.
