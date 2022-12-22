@@ -14,7 +14,8 @@ import { NgxIndexedDBService} from 'ngx-indexed-db';
 })
 export class AppComponent implements OnInit {
   title = 'angular-pwa-app';
-  packages: any;
+  packagesFromDBOrCache: any;
+  packages : any;
   table;
   sessionPackages : Array<IPackage> = [];
   sessionDeletes : Array<IToDelete> = [];
@@ -120,18 +121,21 @@ export class AppComponent implements OnInit {
     // now pull in data from database and show them
     // SW is goin to show cached if no con.
     this.data.giveMeAllPackages().subscribe(res => {
-      this.packages = res;
+      this.packagesFromDBOrCache = res;
       this.dbService.clear('packages').subscribe(
         () => {console.log('clear success')},
         (error) => {console.log('clear error', error)}
       );
-      this.packages.forEach((singlePackage : IPackage)=>{
+      this.packagesFromDBOrCache.forEach((singlePackage : IPackage)=>{
         this.dbService.add('packages',singlePackage).subscribe(
           () => {console.log('adding packagesnto idb succes')},
           (error) => {console.log('adding packages to idb error', error)}
         )
       })
     })
+    this.dbService.getAll('packages').subscribe((res)=>{
+      this.packages = res;
+    });
     // theis is ugly code!!! I couldn't find a way to access the cacheStorage
     // sinds service worker only resides in dist/ folder.
     // so i handled it ugly and only visibly 
