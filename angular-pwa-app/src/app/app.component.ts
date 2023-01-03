@@ -7,6 +7,8 @@ import { OnInit } from '@angular/core';
 import { NgxIndexedDBService} from 'ngx-indexed-db';
 
 
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit {
   sessionDeletes : Array<IToDelete> = [];
   indexedDB = window.indexedDB;
   request :any;
+  navigator = window.navigator;
   db:any;
   packageStore:any;
 
@@ -34,7 +37,7 @@ export class AppComponent implements OnInit {
   public DeletePackage(id:string){
     // when this func fires from button press
     // check for con
-    switch (navigator.onLine){
+    switch (this.navigator.onLine){
       case true:
         // if con then delete packages
         this.data.deletePackage(id);
@@ -43,15 +46,54 @@ export class AppComponent implements OnInit {
         // if NO con handle push to session
         this.handleOfflineDeletes(id);
         // if NO con then make invisible
-        this.handleDeleteVisual(id);
+        this.handleDeleteVisual('PackagesIDB','packages',id);
         break;
     } 
   }
 
-  handleDeleteVisual(id :string){
+  handleDeleteVisual(dbName:string,storeName:string,value :string){
     // make it hidden sinds I don't know how to access cacheStorage
-    const element = this.document.getElementById(id);
-    element?.classList.add('hidden');
+    // const element = this.document.getElementById(id);
+    // element?.classList.add('hidden');
+    return new Promise<void>((resolve, reject) => {
+      const request = indexedDB.open(dbName);
+      request.onsuccess = function() {
+        const db = request.result;
+        const transaction = db.transaction([storeName], 'readwrite');
+        const objectStore = transaction.objectStore(storeName);
+        const requestCursor = objectStore.openCursor();
+        requestCursor.onsuccess = function(event:any) {
+          const cursor = event.target.result;
+          if (cursor) {
+            if (cursor.value.id  === value) {
+              console.log('Found object with key:', cursor.key);
+              const requestDelete = objectStore.delete(cursor.key);
+              requestDelete.onsuccess = function() {
+                console.log('Successfully deleted object with key:', cursor.key);
+                resolve();
+              };
+              requestDelete.onerror = function() {
+                console.error('Failed to delete object with key:', cursor.key);
+                reject();
+              };
+            } else {
+              cursor.continue();
+            }
+          } else {
+            console.error('Object not found');
+            reject();
+          }
+        };
+        requestCursor.onerror = function() {
+          console.error('Failed to open cursor');
+          reject();
+        };
+      };
+      request.onerror = function() {
+        console.error('Failed to open database');
+        reject();
+      };
+    });
   }
 
   async handleOfflineSessionDeletesVisual(){
@@ -102,24 +144,8 @@ export class AppComponent implements OnInit {
       
     }
   }
-
-  ngOnInit(){
-    // oninit is going to check for connection
-    switch (navigator.onLine){
-      case true:
-        // if there is con then create the packages from session
-        this.createPackagesFromSession();
-        // if there is con then delete packages from session 
-        this.deletePackagesFromSession();
-        break;
-      case false:
-        // if there is NO con then handle the packages visibly
-        this.handleOfflineSessionPackages();
-        break;
-
-    }
-    // now pull in data from database and show them
-    // SW is goin to show cached if no con.
+  loadPackagesFromDBOrCache (){
+    console.log('load db or cache hit')
     this.data.giveMeAllPackages().subscribe(res => {
       this.packagesFromDBOrCache = res;
       this.dbService.clear('packages').subscribe(
@@ -133,13 +159,45 @@ export class AppComponent implements OnInit {
         )
       })
     })
+  }
+  loadPackagesFromIDB(){
+    // now pull in data from database and show them
+    // SW is goin to show cached if no con.
+    console.log('loadIDB hit')
     this.dbService.getAll('packages').subscribe((res)=>{
       this.packages = res;
     });
+  }
+  ngOnInit(){
+    // oninit is going to check for connection
+    if(this.navigator.onLine){
+      console.log('navigator' , this.navigator.onLine);
+        // if there is con then create the packages from session
+        this.createPackagesFromSession();
+        // if there is con then delete packages from session 
+        this.deletePackagesFromSession();
+        //default loading packages from DB and putting it in the IDB
+        this.loadPackagesFromDBOrCache();
+        // now load packages from the IDB to the view
+        this.loadPackagesFromIDB();
+    }else{
+      console.log('navigator' , this.navigator.onLine);
+      // if there is NO con then handle the packages visibly
+      this.handleOfflineSessionPackages();
+      // now load packages from the IDB to the view
+      this.loadPackagesFromIDB();
+      // if(sessionStorage['deletes']){
+      //   const sessionDeletes = JSON.parse(sessionStorage['deletes']);
+      //   sessionDeletes.forEach((toDeleteObject:IToDelete) =>{
+      //     this.handleDeleteVisual('PackagesIDB','packages',toDeleteObject.ID);
+      //   })
+      // }
+    }
+    
     // theis is ugly code!!! I couldn't find a way to access the cacheStorage
     // sinds service worker only resides in dist/ folder.
     // so i handled it ugly and only visibly 
-    this.handleOfflineSessionDeletesVisual();
+    // this.handleOfflineSessionDeletesVisual();
   }
 
   createPackagesFromSession(){
