@@ -13,6 +13,8 @@ export class PackageComponent {
 @Input() Package = {} as IPackage;
 
 // some properties needed for the application to work.
+navigator = window.navigator;
+reloader = () => window.location.reload();
 createPackageForm : FormGroup;
 isInvalidForm : boolean = false;
 createPackageArray : Array<Object> = [];
@@ -58,7 +60,7 @@ public DeletePackage(id:any){
 }
 onSubmit(){
   console.log('submit hit')
-  switch(navigator.onLine){
+  switch(this.navigator.onLine){
     case true:
       // fires the validation and if validated fires the post of the 
       // package to the database. 
@@ -80,6 +82,7 @@ onValidationCreation(){
   }else{
     this.isInvalidForm = false;
     // posting the package to the database
+    console.log(this.createPackageForm.value);
     this.data.createPackage(this.createPackageForm.value);
     return;
     }

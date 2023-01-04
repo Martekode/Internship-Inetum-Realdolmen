@@ -43,15 +43,17 @@ export class AppComponent implements OnInit {
         this.data.deletePackage(id);
         break;
       case false:
-        // if NO con handle push to session
+        // if NO con put the id in the sessionStorage to delete later
         this.handleOfflineDeletes(id);
-        // if NO con then make invisible
-        this.handleDeleteVisual('PackagesIDB','packages',id);
+        // if NO conn, delete the package from IDB to handle visually
+        this.deletePackageFromIDB('PackagesIDB','packages',id);
+        // reload the page to make the change visible
+        window.location.reload();
         break;
     } 
   }
 
-  handleDeleteVisual(dbName:string,storeName:string,value :string){
+  deletePackageFromIDB(dbName:string,storeName:string,value :string){
     // make it hidden sinds I don't know how to access cacheStorage
     // const element = this.document.getElementById(id);
     // element?.classList.add('hidden');
@@ -96,54 +98,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  async handleOfflineSessionDeletesVisual(){
-    // if deletes inside session storage
-    if(sessionStorage['deletes']){
-      // THIS WORKS
-      // settimeout needed to access the DOM, oninit it is null otherwise
-      // I tried afterviewinit too but doesn't work either
-      // definitly better way of doing it out there
-      // setTimeout(() => {
-      //   const sessionDeletes = JSON.parse(sessionStorage['deletes']);
-      //   sessionDeletes.forEach((item : IToDelete) =>{
-      //     const element = this.document.getElementById(item.ID);
-      //     element?.classList.add('hidden');
-      //   })
-      // }, 100);
-
-
-      const request = new Request('http://localhost:8081/api/packages/', {
-        method : 'GET'
-      })
-
-      const res = await caches.match(request).then(async function(response) {
-        if (response) {
-          // If a response is found in the cache, return it
-          return await response.json().then((data)=>{
-            return data;
-          });
-        } else {
-          // If a response is not found in the cache, fetch it from the network
-          return 'not found';
-        }
-      });
-      console.log(caches.keys());
-      console.log(await res);
-      
-      // THIS IS MY TRY WITH PROMISES --> THIS RETURNS NULL SO DOESN'T WORK.
-      // const sessionDeletes = JSON.parse(sessionStorage['deletes']);
-      // sessionDeletes.forEach((obj:IToDelete)=>{
-      //   const DOMelement = this.document.getElementById(`${obj.ID}`);
-      //   const DOMpromise = Promise.resolve(DOMelement);
-      //   DOMpromise.then((element)=>{
-      //     console.log('dompromise hit');
-      //     console.log(element);
-      //     element?.classList.add('hidden');
-      //   })
-      // })
-      
-    }
-  }
   loadPackagesFromDBOrCache (){
     console.log('load db or cache hit')
     this.data.giveMeAllPackages().subscribe(res => {
@@ -186,18 +140,7 @@ export class AppComponent implements OnInit {
       this.handleOfflineSessionPackages();
       // now load packages from the IDB to the view
       this.loadPackagesFromIDB();
-      // if(sessionStorage['deletes']){
-      //   const sessionDeletes = JSON.parse(sessionStorage['deletes']);
-      //   sessionDeletes.forEach((toDeleteObject:IToDelete) =>{
-      //     this.handleDeleteVisual('PackagesIDB','packages',toDeleteObject.ID);
-      //   })
-      // }
     }
-    
-    // theis is ugly code!!! I couldn't find a way to access the cacheStorage
-    // sinds service worker only resides in dist/ folder.
-    // so i handled it ugly and only visibly 
-    // this.handleOfflineSessionDeletesVisual();
   }
 
   createPackagesFromSession(){
@@ -217,6 +160,8 @@ export class AppComponent implements OnInit {
   }
 
   handleOfflineSessionPackages(){
+    // this could be done with IDB but this workes for now and eliminates
+    // refactoring 
     // if session storage posts
     console.log('handle offline packages oninit')
     if(sessionStorage['posts']){

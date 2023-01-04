@@ -18,11 +18,9 @@ export class DataService {
   deletePackage(id:any){
     this.http.delete(`${DataService.baseUrl}${id}`)
     .subscribe();
-    window.location.reload();
   }
 
   createPackage(obj:object){
     this.http.post(DataService.baseUrl,obj).subscribe();
-    window.location.reload();
     }
 }
