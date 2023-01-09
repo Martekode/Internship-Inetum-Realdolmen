@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   indexedDB = window.indexedDB;
   request :any;
   navigator = window.navigator;
+  isOnline : boolean = navigator.onLine;
   db:any;
   packageStore:any;
 
@@ -41,6 +42,10 @@ export class AppComponent implements OnInit {
       case true:
         // if con then delete packages
         this.data.deletePackage(id);
+        // delete from idb too 
+        this.deletePackageFromIDB('PackagesIDB','packages',id);
+        // we load the packages back in from the idb to update the view 
+        this.loadPackagesFromIDB();
         break;
       case false:
         // if NO con put the id in the sessionStorage to delete later
@@ -98,7 +103,17 @@ export class AppComponent implements OnInit {
     });
   }
 
-  loadPackagesFromDBOrCache (){
+
+  syncApp(){
+    console.log('syncApp was hit');
+    this.loadPackagesFromDBOrCache();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  }
+
+
+  loadPackagesFromDBOrCache(){
     console.log('load db or cache hit')
     this.data.giveMeAllPackages().subscribe(res => {
       this.packagesFromDBOrCache = res;
@@ -114,6 +129,8 @@ export class AppComponent implements OnInit {
       })
     })
   }
+
+
   loadPackagesFromIDB(){
     // now pull in data from database and show them
     // SW is goin to show cached if no con.
@@ -131,7 +148,7 @@ export class AppComponent implements OnInit {
         // if there is con then delete packages from session 
         this.deletePackagesFromSession();
         //default loading packages from DB and putting it in the IDB
-        this.loadPackagesFromDBOrCache();
+        // this.loadPackagesFromDBOrCache();
         // now load packages from the IDB to the view
         this.loadPackagesFromIDB();
     }else{

@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormGroup, FormControl,Validators } from '@angular/forms';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-package',
@@ -20,7 +22,7 @@ isInvalidForm : boolean = false;
 createPackageArray : Array<Object> = [];
 static baseUrl = "http://localhost:8081/api/packages/";
 
-constructor(private data : DataService){
+constructor(private data : DataService, private dbService : NgxIndexedDBService,private app : AppComponent){
   // creating a formgroup to bind the values of the form to an object.
   // to the createPackageform.value.
   this.createPackageForm = new FormGroup({
@@ -84,6 +86,11 @@ onValidationCreation(){
     // posting the package to the database
     console.log(this.createPackageForm.value);
     this.data.createPackage(this.createPackageForm.value);
+    this.dbService.add('packages',this.createPackageForm.value).subscribe(
+      ()=>{console.log('successfully added paccakage to IDB')},
+      (error)=>{console.error(error)}
+    );
+    this.app.loadPackagesFromIDB();
     return;
     }
   }

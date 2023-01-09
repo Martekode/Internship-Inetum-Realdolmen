@@ -1,5 +1,6 @@
 <div class="headertext">
     <h1>Postal_IR</h1>
+    <button class="syncButton" *ngIf="isOnline == true" (click)="syncApp()">sync</button>
 </div>
 <app-package></app-package>
     <table class="content-table" id="packageTable">
